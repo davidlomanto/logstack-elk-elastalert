@@ -1,0 +1,65 @@
+# Alert when the rate of events exceeds a threshold
+
+# (Optional)
+# Elasticsearch host
+# es_host: elasticsearch.example.com
+
+# (Optional)
+# Elasticsearch port
+# es_port: 14900
+
+# (OptionaL) Connect with SSL to Elasticsearch
+#use_ssl: True
+
+# (Optional) basic-auth username and password for Elasticsearch
+#es_username: someusername
+#es_password: somepassword
+
+# (Required)
+# Rule name, must be unique
+name: Example frequency rule
+
+# (Required)
+# Type of alert.
+# the frequency rule type alerts when num_events events occur with timeframe time
+type: frequency
+
+# (Required)
+# Index to search, wildcard supported
+index: logstash-*
+
+# (Required, frequency specific)
+# Alert when this many documents matching the query occur within a timeframe
+num_events: 5
+
+# (Required, frequency specific)
+# num_events must occur within this amount of time to trigger an alert
+timeframe:
+  hours: 4
+
+# (Required)
+# A list of Elasticsearch filters used for find events
+# These filters are joined with AND and nested in a filtered query
+# For more info: http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/query-dsl.html
+filter:
+- term:
+    source: ratings
+
+# (Required)
+# The alert is use when a match is found
+alert:
+- "email"
+- "telegram"
+
+telegram_bot_token: 801863992:AAFjnEtOwBo3qguf2Hzy2OZjyosfDBFiYM4
+telegram_room_id: "840012533"
+
+# (required, email specific)
+# a list of email addresses to send alerts to
+email:
+- "davidlomanto@gmail.com"
+smtp_host: "smtp.gmail.com"
+smtp_port: 465
+smtp_ssl: true
+from_addr: "davidlomanto@gmail.com"
+smtp_auth_file: '/home/davidlomanto/logstack-elk-elastalert-master/autentication.yaml' 
