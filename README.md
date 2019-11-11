@@ -13,7 +13,7 @@ Instruções(passo a passo):
 
       a. Para isso, é necessário configurar a regra de alerta que você desejar. (Maiores informações de como fazer, consultar a          documentação: https://elastalert.readthedocs.io/en/latest/ . Na parte “Writing Filters For Rules”, diz como determinar          o filtro do alerta.) Para essa aplicação, usamos o alerta do tipo “email”;
       
-      b. Abrir o arquivo “frequency.yaml”;
+      b. Abrir o arquivo “frequency.yaml(na pasta elastalert/example_rules)”;
             i. Alterar num_events (número de eventos que ocorrer para emitir o alerta);
            ii. Alterar timeframe (janela de tempo para que se detecte os eventos e emita o alerta);
           iii. Alterar todos os outros campos com “[ ]”, ex.: “[email]” vai aparecer como “joaocleber@gmail.com” (tirando os                  colchetes e mantendo as aspas;
