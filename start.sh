@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-cd $(find ~ -maxdepth 1 -iname 'logstack-elk-elastalert')
+cd $(find ~ -maxdepth 2 -iname "logstack-elk-elastalert")
 sudo snap install microk8s --classic
 sudo microk8s.start
 echo "y\n" | sudo microk8s.enable istio
@@ -15,6 +15,8 @@ do
 	sleep 1
 done
 
+
+#Bloco da Aplicação
 microk8s.kubectl create -f bookinfo.yaml
 sleep 2
 result1=$(microk8s.kubectl get pods --field-selector=status.phase!=Succeeded,status.phase!=Running --all-namespaces)
@@ -26,6 +28,7 @@ do
 done
 microk8s.kubectl create -f bookinfo-gateway.yaml
 microk8s.kubectl create -f logging-stack.yaml
+
 result1=$(microk8s.kubectl get pods --field-selector=status.phase!=Succeeded,status.phase!=Running --all-namespaces)
 echo "aguarde... processando (Elasticsearch, Fluentd e Kibana - 3/3)"
 while [ ${#result1} -ne 0 ];
