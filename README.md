@@ -25,3 +25,7 @@ Instruções(passo a passo):
 
       e. Pronto! seu alerta vai estar funcionando!
          ps: note que durante a execução vai mostrar o que está acontecendo, caso queira acompanhar. 
+
+  3. Clear (limpar tudo):
+  
+      a. Caso queira terminar tudo, basta rodar o bash "clean.sh" (comando ./clean.sh).

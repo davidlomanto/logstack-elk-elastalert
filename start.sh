@@ -1,7 +1,11 @@
 #!/bin/bash
 
 
+<<<<<<< HEAD
 cd $(find ~ -maxdepth 2 -iname "logstack-elk-elastalert")
+=======
+cd $(sudo find ~ -iname "logstack-elk-elastalert" | head -n 1)
+>>>>>>> 54ca193f516ebbee073ae70475d59f17794d7dfb
 sudo snap install microk8s --classic
 sudo microk8s.start
 echo "y\n" | sudo microk8s.enable istio
