@@ -40,7 +40,7 @@ spec:
         sidecar.istio.io/inject: "false"
     spec:
       containers:
-      - image: docker.elastic.co/elasticsearch/elasticsearch-oss:7.4.0
+      - image: docker.elastic.co/elasticsearch/elasticsearch:6.7.2
         name: elasticsearch
         resources:
           # need more cpu upon initialization, therefore burstable class
@@ -64,6 +64,15 @@ spec:
       volumes:
       - name: elasticsearch
         emptyDir: {}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: es-config
+data:
+  elasticsearch.yml: |
+    action.auto_create_index: +.kibana*, -*
+  ES_JAVA_OPTS: -Xms512m -Xmx512m
 ---
 # Fluentd Service
 apiVersion: v1
@@ -142,7 +151,7 @@ data:
        include_tag_key true
        host elasticsearch
        port 9200
-       logstash_format true
+       logstash_format true       
        # Set the chunk limits.
        buffer_chunk_limit 2M
        buffer_queue_limit 8
@@ -152,7 +161,7 @@ data:
        # Disable the limit on the number of retries (retry forever).
        disable_retry_limit
        # Use multiple threads for processing.
-       num_threads 2
+       num_threads 2       
     </match>
 metadata:
   name: fluentd-es-config
@@ -195,7 +204,7 @@ spec:
     spec:
       containers:
       - name: kibana
-        image: docker.elastic.co/kibana/kibana-oss:7.4.0
+        image: docker.elastic.co/kibana/kibana-oss:6.7.2
         resources:
           # need more cpu upon initialization, therefore burstable class
           limits:
